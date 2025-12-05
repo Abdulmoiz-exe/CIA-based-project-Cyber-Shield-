@@ -1,5 +1,3 @@
-#AUTHOR ABDUL MOIZ
-#connect with me www.linkedin.com/in/moiz-khan-a460b9319
 import os
 import hashlib
 import shutil
@@ -391,6 +389,8 @@ if __name__ == '__main__':
     print("🔑 Key File:", cyber_shield.key_file)
     print("💾 Backup Directory:", cyber_shield.backup_dir)
     print("🔍 Hash File:", cyber_shield.hash_file)
-    
+    #AUTHOR ABDUL MOIZ
+    #connect with me www.linkedin.com/in/moiz-khan-a460b9319
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
