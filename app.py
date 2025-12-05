@@ -1,3 +1,5 @@
+#AUTHOR ABDUL MOIZ
+#connect with me www.linkedin.com/in/moiz-khan-a460b9319
 import os
 import hashlib
 import shutil
@@ -390,4 +392,5 @@ if __name__ == '__main__':
     print("💾 Backup Directory:", cyber_shield.backup_dir)
     print("🔍 Hash File:", cyber_shield.hash_file)
     
+
     app.run(debug=True, host='0.0.0.0', port=5000)
