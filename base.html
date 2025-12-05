@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CyberShield - Advanced Security Toolkit{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shield"></div>
+        <div class="floating-shield"></div>
+        <div class="floating-shield"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="cyber-header">
+        <div class="header-content">
+            <div class="shield-animation">
+                <div class="shield">
+                    <div class="shield-core"></div>
+                    <div class="shield-ring"></div>
+                    <div class="shield-ring"></div>
+                    <div class="shield-ring"></div>
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+            <div class="header-text">
+                <h1 class="cyber-title">CYBER SHIELD</h1>
+                <p class="cyber-subtitle">Advanced Security Toolkit</p>
+            </div>
+            <div class="security-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">SECURE</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+        <div class="footer-content">
+            <div class="system-monitor">
+                <span class="monitor-item"><i class="fas fa-clock"></i> <span id="current-time">--:--:--</span></span>
+                <span class="monitor-item"><i class="fas fa-fingerprint"></i> Hashes: <span id="hash-count">0</span></span>
+                <span class="monitor-item"><i class="fas fa-copy"></i> Backups: <span id="backup-count">0</span></span>
+            </div>
+            <div class="footer-status">
+                <span id="global-status">🛡️ System Ready - Cyber Shield Active</span>
+                <div class="progress-indicator" id="global-progress"></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification System -->
+    <div id="notification-container"></div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

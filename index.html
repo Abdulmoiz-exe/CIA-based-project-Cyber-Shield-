@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- File Upload Section -->
+    <section class="upload-section">
+        <div class="section-header">
+            <i class="fas fa-file-upload"></i>
+            <h2>File Selection</h2>
+        </div>
+        <div class="upload-area" id="upload-area">
+            <div class="upload-content">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag & Drop Files Here</h3>
+                <p>or click to browse</p>
+                <input type="file" id="file-input" style="display: none;">
+                <button class="browse-btn" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-search"></i> Browse Files
+                </button>
+            </div>
+        </div>
+        <div class="file-info" id="file-info">
+            <p>No file selected</p>
+        </div>
+    </section>
+
+    <!-- Security Tools Grid -->
+    <section class="tools-section">
+        <div class="section-header">
+            <i class="fas fa-tools"></i>
+            <h2>Security Tools</h2>
+        </div>
+        <div class="tools-grid">
+            <!-- Encrypt File -->
+            <div class="tool-card" data-tool="encrypt">
+                <div class="tool-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>Encrypt File</h3>
+                <p>Secure your files with AES encryption</p>
+                <button class="tool-btn" onclick="handleTool('encrypt')">
+                    <span class="btn-text">Encrypt</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- Decrypt File -->
+            <div class="tool-card" data-tool="decrypt">
+                <div class="tool-icon">
+                    <i class="fas fa-unlock"></i>
+                </div>
+                <h3>Decrypt File</h3>
+                <p>Restore encrypted files to original form</p>
+                <button class="tool-btn" onclick="handleTool('decrypt')">
+                    <span class="btn-text">Decrypt</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- Compute Hash -->
+            <div class="tool-card" data-tool="compute_hash">
+                <div class="tool-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <h3>Compute Hash</h3>
+                <p>Generate SHA-256 file fingerprint</p>
+                <button class="tool-btn" onclick="handleTool('compute_hash')">
+                    <span class="btn-text">Compute</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- Verify Integrity -->
+            <div class="tool-card" data-tool="verify_integrity">
+                <div class="tool-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Verify Integrity</h3>
+                <p>Check if files have been modified</p>
+                <button class="tool-btn" onclick="handleTool('verify_integrity')">
+                    <span class="btn-text">Verify</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- Backup File -->
+            <div class="tool-card" data-tool="backup">
+                <div class="tool-icon">
+                    <i class="fas fa-copy"></i>
+                </div>
+                <h3>Backup File</h3>
+                <p>Create secure file backups</p>
+                <button class="tool-btn" onclick="handleTool('backup')">
+                    <span class="btn-text">Backup</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- Generate Password -->
+            <div class="tool-card" data-tool="generate_password">
+                <div class="tool-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3>Generate Password</h3>
+                <p>Create strong, secure passwords</p>
+                <button class="tool-btn" onclick="showPasswordGenerator()">
+                    <span class="btn-text">Generate</span>
+                </button>
+            </div>
+
+            <!-- View Hashes -->
+            <div class="tool-card" data-tool="view_hashes">
+                <div class="tool-icon">
+                    <i class="fas fa-list"></i>
+                </div>
+                <h3>View Hashes</h3>
+                <p>Browse stored file hashes</p>
+                <button class="tool-btn" onclick="handleTool('view_hashes')">
+                    <span class="btn-text">View</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+
+            <!-- System Info -->
+            <div class="tool-card" data-tool="system_info">
+                <div class="tool-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h3>System Info</h3>
+                <p>View security system status</p>
+                <button class="tool-btn" onclick="handleTool('system_info')">
+                    <span class="btn-text">Info</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Output Console -->
+    <section class="output-section">
+        <div class="section-header">
+            <i class="fas fa-terminal"></i>
+            <h2>Operation Output</h2>
+            <div class="output-controls">
+                <button class="control-btn" onclick="clearOutput()">
+                    <i class="fas fa-broom"></i> Clear
+                </button>
+                <button class="control-btn" onclick="copyOutput()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <button class="control-btn" onclick="saveLog()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+        <div class="output-console" id="output-console">
+            <div class="console-content" id="console-content">
+                <div class="welcome-message">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>CyberShield Web Ready</h3>
+                    <p>Select a file and choose a security operation to begin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Password Generator Modal -->
+<div id="password-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-key"></i> Password Generator</h2>
+            <span class="close-modal" onclick="closePasswordModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <!-- Password generator content will be loaded here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Global variables
+    let currentFile = null;
+    
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeFileUpload();
+        updateSystemInfo();
+        setInterval(updateSystemInfo, 5000);
+        setInterval(updateCurrentTime, 1000);
+    });
+</script>
+{% endblock %}
